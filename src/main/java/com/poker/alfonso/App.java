@@ -24,5 +24,9 @@ public class App {
         System.out.println("/////////////////////////////");
         System.out.println("Hand elements: " + hand.stringifiedHand);
         System.out.println("/////////////////////////////");
+
+        System.out.println("/////////////////////////////");
+        System.out.println("Hand Evaluation: " + hand.evaluate());
+        System.out.println("/////////////////////////////");
     }
 }
