@@ -1,6 +1,5 @@
 package com.poker.alfonso;
 
-import java.util.Comparator;
 
 public class Card {
     private int suit;
@@ -36,6 +35,8 @@ public class Card {
     public String stringify(Card card) {
         return ranks[card.rank] + " of " + suits[card.suit] + ", deck position: " + card.deckPosition;
     }
+
+  
 
 
 
