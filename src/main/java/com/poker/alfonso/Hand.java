@@ -48,7 +48,7 @@ public class Hand {
                 return "None";
             }
         } else {
-            return "None";
+            return "High Card";
         }
     }
 
