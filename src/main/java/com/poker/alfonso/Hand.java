@@ -36,19 +36,10 @@ public class Hand {
         } else if (!this.royalFlush() && this.flush() &&
                 !this.straight()) {
             return "Flush";
-        } else if (this.nOfAKind() > 1) {
-            if (this.nOfAKind() == 2) {
-                return "Two of a Kind";
-            } else if (this.nOfAKind() == 3) {
-                return "Three of a Kind";
-            } else if (this.nOfAKind() == 4) {
-                return "Four of a Kind";
-            }
-            else{
-                return "None";
-            }
+
         } else {
-            return "High Card";
+            if (this.pairsAndNofAKind() != "")return this.pairsAndNofAKind();
+            else return "High Card";
         }
     }
 
@@ -87,19 +78,43 @@ public class Hand {
         return result;
     }
 
-    private int nOfAKind() {
+    private String pairsAndNofAKind() {
         int temp = hand[0].getRank();
+        String result = "";
         int iter = 1;
         int dupes = 1;
+        int secondDupes = 0;
+
         while (iter < 5) {
             if (hand[iter].getRank() == temp) {
                 dupes++;
             } else {
+                if (dupes > 1 && iter != 4) {
+                    secondDupes = dupes;
+                    dupes = 1;
+                }
                 temp = hand[iter].getRank();
             }
             iter++;
         }
-        return dupes;
+
+        if (dupes == 1) {
+            if (secondDupes == 2)
+                result = "Two of a Kind";
+            else if (secondDupes == 3)
+                result = "Three of a Kind";
+            else if (secondDupes == 4)
+                result = "Four of a Kind";
+        } else if (dupes > 1) {
+            if ((dupes == 2 && secondDupes == 3) || (dupes == 3 && secondDupes == 2))
+                result = "Full House";
+            else if (dupes == 2 && secondDupes == 2)
+                result = "Two Pairs";
+
+        } else
+            result = "I will never execute :(";
+        return result;
+
     }
 
 }
