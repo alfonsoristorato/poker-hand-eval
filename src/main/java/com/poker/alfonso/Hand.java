@@ -3,7 +3,6 @@ package com.poker.alfonso;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Hand {
     Card[] hand;
@@ -37,10 +36,17 @@ public class Hand {
         } else if (!this.royalFlush() && this.flush() &&
                 !this.straight()) {
             return "Flush";
-        } else if (this.fourOfAKind()) {
-            return "Four of a Kind";
-        } else if (this.threeOfAKind()) {
-            return "Three of a Kind";
+        } else if (this.NOfAKind() > 1) {
+            if (this.NOfAKind() == 2) {
+                return "Two of a Kind";
+            } else if (this.NOfAKind() == 3) {
+                return "Three of a Kind";
+            } else if (this.NOfAKind() == 4) {
+                return "Four of a Kind";
+            }
+            else{
+                return "None";
+            }
         } else {
             return "None";
         }
@@ -81,30 +87,19 @@ public class Hand {
         return result;
     }
 
-    private boolean fourOfAKind() {
-        // Long distinctCount = Arrays.stream(hand).distinct().count();
-        // return hand.length != distinctCount;
-        if (hand[0].getRank() == hand[1].getRank() && hand[0].getRank() == hand[2].getRank()
-                && hand[0].getRank() == hand[3].getRank()
-                || hand[4].getRank() == hand[1].getRank() && hand[4].getRank() == hand[2].getRank()
-                        && hand[4].getRank() == hand[3].getRank()) {
-            return true;
-        } else {
-            return false;
+    private int NOfAKind() {
+        int temp = hand[0].getRank();
+        int iter = 1;
+        int dupes = 1;
+        while (iter < 5) {
+            if (hand[iter].getRank() == temp) {
+                dupes++;
+            } else {
+                temp = hand[iter].getRank();
+            }
+            if (iter != 5)iter++;
         }
-    }
-
-    private boolean threeOfAKind() {
-        if (hand[0].getRank() == hand[1].getRank() && hand[0].getRank() == hand[2].getRank()
-                && hand[0].getRank() != hand[3].getRank() && hand[0].getRank() != hand[4].getRank()
-                || hand[1].getRank() == hand[2].getRank() && hand[1].getRank() == hand[3].getRank()
-                        && hand[1].getRank() != hand[0].getRank() && hand[1].getRank() != hand[4].getRank()
-                || hand[4].getRank() == hand[2].getRank() && hand[4].getRank() == hand[3].getRank()
-                        && hand[4].getRank() != hand[0].getRank() && hand[4].getRank() != hand[1].getRank()) {
-            return true;
-        } else {
-            return false;
-        }
+        return dupes;
     }
 
 }
