@@ -36,12 +36,12 @@ public class Hand {
         } else if (!this.royalFlush() && this.flush() &&
                 !this.straight()) {
             return "Flush";
-        } else if (this.NOfAKind() > 1) {
-            if (this.NOfAKind() == 2) {
+        } else if (this.nOfAKind() > 1) {
+            if (this.nOfAKind() == 2) {
                 return "Two of a Kind";
-            } else if (this.NOfAKind() == 3) {
+            } else if (this.nOfAKind() == 3) {
                 return "Three of a Kind";
-            } else if (this.NOfAKind() == 4) {
+            } else if (this.nOfAKind() == 4) {
                 return "Four of a Kind";
             }
             else{
@@ -87,7 +87,7 @@ public class Hand {
         return result;
     }
 
-    private int NOfAKind() {
+    private int nOfAKind() {
         int temp = hand[0].getRank();
         int iter = 1;
         int dupes = 1;
@@ -97,7 +97,7 @@ public class Hand {
             } else {
                 temp = hand[iter].getRank();
             }
-            if (iter != 5)iter++;
+            iter++;
         }
         return dupes;
     }
